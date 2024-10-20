@@ -11,7 +11,6 @@ const configGridBtn = document.getElementById('configBtn');
 const joystickBtn = document.getElementById('joystickBtn');
 
 
-const backJoyBtn = document.getElementById('backJoyBtn');
 const configJoyBtn = document.getElementById('configJoyBtn');
 const centerJoyBtn = document.getElementById('centerJoyBtn');
 const cubeJoyBtn = document.getElementById('cubeJoyBtn');
@@ -30,9 +29,6 @@ function open3DMap() {
 
 }
 
-function goBackMobile() {
-
-}
 
 
 let joystick;
@@ -101,7 +97,6 @@ toggleGridBtn.addEventListener('click', toggleGrid);
 configGridBtn.addEventListener('click', openSettings);
 joystickBtn.addEventListener('click', openJoystick);
 
-// backJoyBtn.addEventListener('click', goBackMobile);
 configJoyBtn.addEventListener('click', openSettings);
 centerJoyBtn.addEventListener('click', centerMap);
 cubeJoyBtn.addEventListener('click', open3DMap);
