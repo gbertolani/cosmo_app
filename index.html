@@ -5,6 +5,7 @@
     <title>Cosmo Robot APP</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless@5/borderless.css"/>
     <link rel="stylesheet" href="./static/css/styles.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
@@ -16,12 +17,13 @@
         <div class="logo">Cosmo Robot App</div>
         <div class="controls">
             <h2 id="title">Map Controls</h2>
-            <button id="zoomIn">Zoom In</button>
-            <button id="zoomOut">Zoom Out</button>
-            <button id="resetView">Reset View</button>
-            <button id="centerMap">Center Map</button>
-            <button id="toggleGrid">Toggle Grid</button>
+            <button id="zoomInBtn">Zoom In</button>
+            <button id="zoomOutBtn">Zoom Out</button>
+            <button id="resetViewBtn">Reset View</button>
+            <button id="centerMapBtn">Center Map</button>
+            <button id="toggleGridBtn">Toggle Grid</button>
             <button id="joystickBtn">Joystick</button>
+            <button id="configBtn">Settings</button>
         </div>
         <div class="legend">
             <h2>Legend</h2>
@@ -41,6 +43,26 @@
         <div class="joystick-container">
             <div id="joyDiv" style="width:150px;height:150px"></div>
         </div>
+        <div class="joystick-container-mobile">
+            <div class="button-container">
+                <button class="icon-button" id="backJoyBtn">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+                <button class="icon-button" id="configJoyBtn">
+                    <i class="fa fa-cog"></i>
+                </button>
+            </div>
+            <div id="joyDivMobile" style="width:150px;height:150px"></div>
+            <div class="button-container">
+                <button class="icon-button" id="centerJoyBtn">
+                    <i class="fa fa-dot-circle-o"></i>
+                </button>
+                <button class="icon-button" id="cubeJoyBtn">
+                    <i class="fa fa-cube"></i>
+                </button>
+            </div>
+        </div>
+
         <div class="status">
             <div>Status: <span id="status">Ready</span></div>
             <div id="coordinates">X: 0 cm, Y: 0 cm</div>
@@ -50,11 +72,12 @@
         <canvas id="mapCanvas"></canvas>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/roslib@1.3.0/build/roslib.min.js"></script>
-    <script src="./static/js/lib/joy.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/roslib@1.3.0/build/roslib.min.js?v=1.3.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="./static/vendor/joy/joy.min.js?v=2.0.0"></script>
     <script type="module" src="./static/js/2Dmap.js"></script>
     <script type="module" src="./static/js/motor_handler.js"></script>
-    <script type="module" src="./static/js/control.js"></script>
+    <script type="module" src="./static/js/app.js"></script>
 </body>
 </html>
 

@@ -11,6 +11,13 @@ body, html {
 body {
     display: flex;
 }
+
+
+.swal2-html-container{
+    padding: 0px !important;
+    overflow: unset !important;
+}
+
 #sidebar {
     width: 280px;
     background-color: #16213e;
@@ -124,7 +131,63 @@ button:active {
     margin-top: 20px
 }
 
+.joystick-container-mobile {
+    display: none;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+    justify-content: space-evenly;
+}
+
+.icon-button {
+    background-color: #102a4d; /* Azul oscuro del entorno */
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: #00cfff; /* Color similar al botón central */
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s ease-out;
+     outline: none;
+     -webkit-tap-highlight-color: transparent;
+     user-select: none;
+}
+
+.icon-button:focus, 
+.icon-button:active {
+    outline: none;
+    box-shadow: none;
+    background-color: #154e7e;
+    transform: scale(1);
+}
+
+.icon-button:hover {
+    background-color: #154e7e;
+    transform: scale(1.1);
+}
+
+.icon-button:focus-visible {
+    outline: none;
+    box-shadow: none;
+    background-color: #102a4d;
+}
+
 @media (max-width: 868px) {
+    #joyDiv{
+        display: none;
+    }
+
+
     #joystickBtn {
         display: block;
     }
@@ -187,10 +250,10 @@ button:active {
         z-index: 999;
     }
 
-    #zoomIn{
+    #zoomInBtn{
         display: none;
     }
-    #zoomOut{
+    #zoomOutBtn{
         display: none;
     }
 
