@@ -101,7 +101,7 @@ toggleGridBtn.addEventListener('click', toggleGrid);
 configGridBtn.addEventListener('click', openSettings);
 joystickBtn.addEventListener('click', openJoystick);
 
-backJoyBtn.addEventListener('click', goBackMobile);
+// backJoyBtn.addEventListener('click', goBackMobile);
 configJoyBtn.addEventListener('click', openSettings);
 centerJoyBtn.addEventListener('click', centerMap);
 cubeJoyBtn.addEventListener('click', open3DMap);
@@ -110,3 +110,31 @@ cubeJoyBtn.addEventListener('click', open3DMap);
 createJoystick()
 window.addEventListener('resize', createJoystick);
 
+let deferredPrompt;
+
+// Escucha el evento `beforeinstallprompt`
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevenir que el prompt de instalación se muestre automáticamente
+  e.preventDefault();
+  deferredPrompt = e;
+
+  // Mostrar el botón de instalación
+    console.log("GOLAAAAAAAAAAAAAA")
+  const installButton = document.getElementById('backJoyBtn');
+  installButton.style.display = 'block';
+
+  installButton.addEventListener('click', () => {
+    // Mostrar el prompt de instalación
+    deferredPrompt.prompt();
+
+    // Manejar la elección del usuario
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('El usuario aceptó la instalación');
+      } else {
+        console.log('El usuario rechazó la instalación');
+      }
+      deferredPrompt = null;
+    });
+  });
+});
