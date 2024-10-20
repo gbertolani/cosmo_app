@@ -183,24 +183,17 @@ button:active {
 }
 
 @media (max-width: 868px) {
-    #joyDiv{
-        display: none;
-    }
-
-
-    #joystickBtn {
-        display: block;
-    }
-    #title, .logo {
+    
+    .logo, .controls {
         display: none;
     }
     .joystick-container {
         display: none;
         margin-top: 0px;
     }
-
-    #joystick {
-        display: block;
+    .joystick-container-mobile {
+        display: flex;
+        margin-top: 0px;
     }
     #sidebar {
         display: flex;
@@ -208,19 +201,8 @@ button:active {
         justify-content: space-around;
         width: 100%;
         padding: 0px;
-        margin: 0px
+        margin: 0px,
     }
-    .controls {
-        display: flex;
-        margin: 5px;
-        padding: 5px;
-        width: 100%;
-    }
-    .controls > button{
-        flex-grow: 1;
-        margin: 5px;
-    }
-
     .legend {
         position: fixed;
         top: 0px;
@@ -228,6 +210,7 @@ button:active {
         background-color: #1f406869;
         margin-top: 0px;
         z-index: 999;
+        box-shadow: 1px 1px 13px 0px rgb(0 0 0 / 12%);
     }
     .legend > h2 {
         font-size: 12px
@@ -250,13 +233,44 @@ button:active {
         z-index: 999;
     }
 
-    #zoomInBtn{
-        display: none;
-    }
-    #zoomOutBtn{
-        display: none;
-    }
-
+    /*  */
+    /* #joyDiv{ */
+    /*     display: none; */
+    /* } */
+    /*  */
+    /*  */
+    /* #joystickBtn { */
+    /*     display: block; */
+    /* } */
+    /* #title, .logo { */
+    /*     display: none; */
+    /* } */
+    /*  */
+    /*  */
+    /* #joystick { */
+    /*     display: block; */
+    /* } */
+    /* .controls { */
+    /*     display: flex; */
+    /*     margin: 5px; */
+    /*     padding: 5px; */
+    /*     width: 100%; */
+    /* } */
+    /* .controls > button{ */
+    /*     flex-grow: 1; */
+    /*     margin: 5px; */
+    /* } */
+    /*  */
+    
+    
+    /*  */
+    /* #zoomInBtn{ */
+    /*     display: none; */
+    /* } */
+    /* #zoomOutBtn{ */
+    /*     display: none; */
+    /* } */
+    /*  */
     body {
         flex-direction: column-reverse;
     }

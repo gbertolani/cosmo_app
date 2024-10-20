@@ -1,4 +1,5 @@
 import { zoom, resetView, centerMap, toggleGrid } from './2Dmap.js'
+import { settingCfg, openSettings } from './settings.js'
 
 
 const zoomInBtn = document.getElementById('zoomInBtn');
@@ -16,56 +17,12 @@ const centerJoyBtn = document.getElementById('centerJoyBtn');
 const cubeJoyBtn = document.getElementById('cubeJoyBtn');
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Auto open config
-    const storageValues = localStorage.getItem('cosmoSettings');
-    if(storageValues == null){
-        openSettings();
-    }
-});
-
-async function openSettings(){
-    let currentValues = localStorage.getItem('cosmoSettings');
-    currentValues = currentValues != null ? JSON.parse(currentValues) : {};
-    const result = await Swal.fire({
-        title: 'Configuration',
-        html: `
-            <input type="text" id="socketHost" class="swal2-input" placeholder="WebSocket Host"
-                value=${currentValues.host || 'ws://localhost:9090/'}>
-        `,
-        // focusConfirm: false,
-        // heightAuto: false,
-        preConfirm: () => {
-            const host = document.getElementById('socketHost').value;
-            if (!host) {
-                Swal.showValidationMessage('Host is Requiered');
-            }
-            return { host };
-        }
-    })
-    if(result.isConfirmed){
-        localStorage.setItem('cosmoSettings', JSON.stringify(result.value));
-        Swal.fire({
-          title: "Saved!",
-          text: "Config has been saved.",
-          icon: "success"
-        });
-    }
-}
-
 function openJoystick() {
     const buttons = document.querySelector('.controls');
     buttons.style.display = 'none'
 
     const joyContainer = document.querySelector('.joystick-container-mobile');
     joyContainer.style.display = 'flex'
-    var joy = new JoyStick('joyDivMobile', {
-        title: 'joystickMobile',
-        internalFillColor: '#4cc9f0',
-        internalStrokeColor: '#1f4068',
-        externalStrokeColor: '#1f4068',
-        autoReturnToCenter: true,
-    });
 
 }
 
@@ -74,16 +31,67 @@ function open3DMap() {
 }
 
 function goBackMobile() {
-    const buttons = document.querySelector('.controls');
-    buttons.style.display = 'flex'
-
-    const joyContainer = document.querySelector('.joystick-container-mobile');
-    joyContainer.style.display = 'none'
-
-    const joystick = document.getElementById('joyDivMobile')
-    joystick.innerHTML = ''
 
 }
+
+
+let joystick;
+
+function createJoystick(){
+    const containerMobile = document.querySelector('.joystick-container-mobile');
+    const joyMobElem = document.getElementById('joyDivMobile')
+    const joyElem = document.getElementById('joyDiv')
+    joyMobElem.innerHTML = ''
+    joyElem.innerHTML = ''
+    const container = document.querySelector('.joystick-container');
+    if(window.getComputedStyle(containerMobile).display != 'none'){
+        joystick = new JoyStick('joyDivMobile', {
+            title: 'joystickMobile',
+            internalFillColor: '#4cc9f0',
+            internalStrokeColor: '#1f4068',
+            externalStrokeColor: '#1f4068',
+            autoReturnToCenter: true,
+        }, handleJoystick);
+    }
+    if(window.getComputedStyle(container).display != 'none'){
+        joystick = new JoyStick('joyDiv', {
+            title: 'joystick',
+            internalFillColor: '#4cc9f0',
+            internalStrokeColor: '#1f4068',
+            externalStrokeColor: '#1f4068',
+            autoReturnToCenter: true,
+        }, handleJoystick);
+    }
+
+}
+
+function mapValue(value, inputMin, inputMax, outputMin, outputMax){
+    const scale = (outputMax - outputMin) / (inputMax  - inputMin)
+    return Math.floor(scale * value);
+}
+
+// Send data every 100ms
+function handleJoystick(){
+    if(!joystick) return;
+    const stick = {
+        posX: joystick.GetPosX(),
+        posY: joystick.GetPosY(),
+        x: parseInt(joystick.GetX()),
+        y: parseInt(joystick.GetY()),
+    }
+    const maxVelocity = settingCfg.maxVelocity || 255;
+    const velocity = mapValue(stick.y, -100, 100, -maxVelocity, maxVelocity);
+    const gyro = mapValue(stick.x, -100, 100, -maxVelocity, maxVelocity);
+
+    let leftMotor = velocity + gyro;
+    let rightMotor = velocity - gyro;
+
+    leftMotor = Math.max(Math.min(leftMotor, maxVelocity), -maxVelocity);
+    rightMotor = Math.max(Math.min(rightMotor, maxVelocity), -maxVelocity);
+    console.log({ leftMotor, rightMotor })
+}
+setInterval(handleJoystick, 100);
+
 
 zoomInBtn.addEventListener('click', () => zoom('in'));
 zoomOutBtn.addEventListener('click', () => zoom('out'));
@@ -98,4 +106,7 @@ configJoyBtn.addEventListener('click', openSettings);
 centerJoyBtn.addEventListener('click', centerMap);
 cubeJoyBtn.addEventListener('click', open3DMap);
 
+
+createJoystick()
+window.addEventListener('resize', createJoystick);
 

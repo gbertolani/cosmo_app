@@ -1,5 +1,7 @@
+import { settingCfg } from './settings.js'
+
 const ros = new ROSLIB.Ros({
-    url: 'ws://localhost:9090'
+    url: settingCfg.host
 });
 
 ros.on('connection', () => console.log('Conectado a ROS 2.'));
