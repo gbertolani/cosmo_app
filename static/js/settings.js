@@ -45,3 +45,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     settingCfg = JSON.parse(storageValues);
 });
+
+
+
+
+// Download
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    const installButton = document.getElementById('downloadBtn');
+    installButton.style.display = 'block';
+
+    installButton.addEventListener('click', () => {
+        deferredPrompt.prompt();
+
+        deferredPrompt.userChoice.then((choiceResult) => {
+            installButton.style.display = 'none';
+            deferredPrompt = null;
+        });
+    });
+});
