@@ -1,0 +1,200 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+}
+body {
+    display: flex;
+}
+#sidebar {
+    width: 280px;
+    background-color: #16213e;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    z-index: 10;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+#canvas-container {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    background-color: #0f3460;
+}
+#mapCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.logo {
+    font-size: 24px;
+    font-weight: 600;
+    color: #4cc9f0;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.controls {
+    background-color: #1f4068;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.controls h2 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #e0e0e0;
+}
+button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #4cc9f0;
+    color: #16213e;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    font-size: 14px;
+    font-weight: 500;
+}
+button:hover {
+    background-color: #5edfff;
+}
+button:active {
+    transform: translateY(1px);
+}
+.status {
+    margin-top: auto;
+    font-size: 14px;
+    color: #a0a0a0;
+}
+#coordinates {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #4cc9f0;
+}
+.legend {
+    background-color: #1f4068;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+}
+.legend h2 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #e0e0e0;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.legend-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border-radius: 3px;
+    border: 1px solid black;
+}
+.legend-label {
+    font-size: 14px;
+}
+
+#mobile-buttons {
+    display: none;
+}
+
+#joystickBtn {
+    display: none;
+}
+
+.joystick-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px
+}
+
+@media (max-width: 868px) {
+    #joystickBtn {
+        display: block;
+    }
+    #title, .logo {
+        display: none;
+    }
+    .joystick-container {
+        display: none;
+        margin-top: 0px;
+    }
+
+    #joystick {
+        display: block;
+    }
+    #sidebar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        padding: 0px;
+        margin: 0px
+    }
+    .controls {
+        display: flex;
+        margin: 5px;
+        padding: 5px;
+        width: 100%;
+    }
+    .controls > button{
+        flex-grow: 1;
+        margin: 5px;
+    }
+
+    .legend {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        background-color: #1f406869;
+        margin-top: 0px;
+        z-index: 999;
+    }
+    .legend > h2 {
+        font-size: 12px
+    }
+    .legend-label {
+        font-size: 10px
+    }
+    .legend-color {
+        width: 10px;
+        height: 10px
+    }
+
+    .status {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        font-size: 10px;
+        margin-top: 10px;
+        margin-right: 10px;
+        z-index: 999;
+    }
+
+    #zoomIn{
+        display: none;
+    }
+    #zoomOut{
+        display: none;
+    }
+
+    body {
+        flex-direction: column-reverse;
+    }
+}
