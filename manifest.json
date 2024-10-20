@@ -30,15 +30,16 @@
   ],
   "screenshots": [
     {
-      "src": "./screenshots/screenshot1.png",
-      "sizes": "540x720",
-      "type": "image/png",
-      "form_factor": "phone"
+      "src": "./screenshots/screenshot2.png",
+      "sizes": "738x1440",
+      "type": "image/png"
     },
     {
-      "src": "./screenshots/screenshot2.png",
-      "sizes": "540x720",
-      "type": "image/png"
+      "src": "./screenshots/screenshot1.png",
+      "sizes": "738x1441",
+      "type": "image/png",
+      "form_factor": "phone"
     }
+    
   ]
 }
