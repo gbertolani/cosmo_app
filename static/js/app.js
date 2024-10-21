@@ -13,7 +13,7 @@ const motorCommandTopic = new ROSLIB.Topic({
 
 function publishMotorMessage(left_pwm, right_pwm){
     const command = new ROSLIB.Message({
-        is_pwm: false,
+        is_pwm: true,
         mot_1_req_rad_sec: left_pwm,
         mot_2_req_rad_sec: right_pwm,
     });
