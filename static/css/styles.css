@@ -27,7 +27,36 @@ body {
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
+    --sb-track-color: #656565;
+    --sb-thumb-color: #394eab;
+    --sb-size: 5px;
+    overflow-y: auto;
+
 }
+
+#sidebar::-webkit-scrollbar {
+    width: var(--sb-size);
+}
+
+#sidebar::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 7px;
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 7px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    #sidebar {
+        scrollbar-color: var(--sb-thumb-color)
+        var(--sb-track-color);
+    }
+}
+
+
+
 #canvas-container {
     flex-grow: 1;
     position: relative;
