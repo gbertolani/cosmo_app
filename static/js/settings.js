@@ -2,6 +2,10 @@ export let settingCfg = {
     host: 'ws://localhost:9090/',
     maxVelocity: 255,
 }
+const storageValues = localStorage.getItem('cosmoSettings');
+if(storageValues != null && storageValues){
+    settingCfg = JSON.parse(storageValues);
+}
 
 export async function openSettings(){
     const result = await Swal.fire({
