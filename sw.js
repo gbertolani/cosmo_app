@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pwa-cache-v1.1.0';
+const CACHE_NAME = 'pwa-cache-v1.1.1';
 const urlsToCache = [
     './',
     './index.html',
@@ -7,6 +7,7 @@ const urlsToCache = [
     './static/js/app.js',
     './static/js/2Dmap.js',
     './static/js/settings.js',
+    './static/js/ros2.js',
     './manifest.json',
     './icons/icon-192x192.png',
     './icons/icon-512x512.png',

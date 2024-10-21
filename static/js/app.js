@@ -1,5 +1,24 @@
 import { zoom, resetView, centerMap, toggleGrid } from './2Dmap.js'
 import { settingCfg, openSettings } from './settings.js'
+import { ros } from './ros2.js'
+
+
+
+const motorCommandTopic = new ROSLIB.Topic({
+    ros: ros,
+    name: '/motor_command',  // Cambia este nombre según tu tópico
+    messageType: 'serial_motor_demo_msgs/msg/MotorCommand'  // Tipo de mensaje esperado
+});
+
+
+function publishMotorMessage(left_pwm, right_pwm){
+    const command = new ROSLIB.Message({
+        is_pwm: false,
+        mot_1_req_rad_sec: left_pwm,
+        mot_2_req_rad_sec: right_pwm,
+    });
+    motorCommandTopic.publish(command);
+}
 
 
 const zoomInBtn = document.getElementById('zoomInBtn');
@@ -47,7 +66,7 @@ function createJoystick(){
             internalStrokeColor: '#1f4068',
             externalStrokeColor: '#1f4068',
             autoReturnToCenter: true,
-        }, handleJoystick);
+        });
     }
     if(window.getComputedStyle(container).display != 'none'){
         joystick = new JoyStick('joyDiv', {
@@ -56,7 +75,7 @@ function createJoystick(){
             internalStrokeColor: '#1f4068',
             externalStrokeColor: '#1f4068',
             autoReturnToCenter: true,
-        }, handleJoystick);
+        });
     }
 
 }
@@ -79,12 +98,12 @@ function handleJoystick(){
     const velocity = mapValue(stick.y, -100, 100, -maxVelocity, maxVelocity);
     const gyro = mapValue(stick.x, -100, 100, -maxVelocity, maxVelocity);
 
-    let leftMotor = velocity + gyro;
-    let rightMotor = velocity - gyro;
+    const leftMotor = velocity + gyro;
+    const rightMotor = velocity - gyro;
 
-    leftMotor = Math.max(Math.min(leftMotor, maxVelocity), -maxVelocity);
-    rightMotor = Math.max(Math.min(rightMotor, maxVelocity), -maxVelocity);
-    console.log({ leftMotor, rightMotor })
+    const leftMotorPwm = Math.max(Math.min(leftMotor, maxVelocity), -maxVelocity);
+    const rightMotorPwm = Math.max(Math.min(rightMotor, maxVelocity), -maxVelocity);
+    publishMotorMessage(leftMotorPwm, rightMotorPwm)
 }
 setInterval(handleJoystick, 100);
 
